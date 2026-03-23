@@ -1,5 +1,5 @@
 use broken_app::{algo, sum_even};
-use criterion::{criterion_group, criterion_main, BatchSize, Criterion};
+use criterion::{BatchSize, Criterion, criterion_group, criterion_main};
 
 fn bench_sum_even(c: &mut Criterion) {
     let data: Vec<i64> = (0..50_000).collect();
