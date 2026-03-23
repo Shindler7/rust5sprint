@@ -149,16 +149,16 @@ def main() -> None:
             name='cargo +nightly miri test',
             cmd=['cargo', '+nightly', 'miri', 'test'],
         ),
-        # Step(
-        #     name='valgrind --leak-check=full cargo test --tests',
-        #     cmd=['valgrind', '--leak-check=full', 'cargo', 'test', '--tests'],
-        #     linux_only=True,
-        # ),
         Step(
-            name='cargo valgrind',
-            cmd=['cargo', 'valgrind', 'run'],
+            name='valgrind --leak-check=full cargo test --tests',
+            cmd=['valgrind', '--leak-check=full', 'cargo', 'test', '--tests'],
             linux_only=True,
         ),
+        # Step(
+        #     name='cargo valgrind',
+        #     cmd=['cargo', 'valgrind', 'run'],
+        #     linux_only=True,
+        # ),
         Step(
             name='ASan (nightly)',
             cmd=['cargo', '+nightly', 'test', *key_test_args],
@@ -188,7 +188,7 @@ def main() -> None:
     with log_file.open('a', encoding='utf-8') as log:
         log.flush()
         print('\nИтог:')
-        log.write('\n\nИтог:')
+        log.write('\n\nИтог:\n')
         for name, status in results:
             line = f'- {status:10} {name}'
             print(line)

@@ -4,17 +4,13 @@ pub mod concurrency;
 /// Сумма чётных значений.
 /// Здесь намеренно используется `get_unchecked` с off-by-one,
 /// из-за чего возникает UB при доступе за пределы среза.
+///
+/// ## Примечание
+///
+/// Код изменен: убран неоправданный `unsafe` и метод `get_unchecked()`,
+/// который приводил к выходу за пределы массива. Добавлены тесты.
 pub fn sum_even(values: &[i64]) -> i64 {
-    let mut acc = 0;
-    unsafe {
-        for idx in 0..=values.len() {
-            let v = *values.get_unchecked(idx);
-            if v % 2 == 0 {
-                acc += v;
-            }
-        }
-    }
-    acc
+    values.iter().filter(|&v| v % 2 == 0).sum()
 }
 
 /// Подсчёт ненулевых байтов. Буфер намеренно не освобождается,
@@ -44,12 +40,27 @@ pub fn normalize(input: &str) -> String {
 
 /// Логическая ошибка: усредняет по всем элементам, хотя требуется учитывать
 /// только положительные. Деление на длину среза даёт неверный результат.
+///
+/// ## Примечание
+///
+/// Код исправлен: теперь высчитывается среднее значение положительных чисел
+/// в массиве. Реализуется за один проход и без копирования массива. Добавлены
+/// тесты.
 pub fn average_positive(values: &[i64]) -> f64 {
-    let sum: i64 = values.iter().sum();
-    if values.is_empty() {
-        return 0.0;
+    let mut count = 0_usize;
+    let mut sum = 0_i64;
+    for &v in values {
+        if v > 0 {
+            count += 1;
+            sum += v;
+        }
     }
-    sum as f64 / values.len() as f64
+
+    if count == 0 {
+        0.0
+    } else {
+        sum as f64 / count as f64
+    }
 }
 
 /// Use-after-free: возвращает значение после освобождения бокса.
@@ -60,4 +71,39 @@ pub unsafe fn use_after_free() -> i32 {
     let val = *raw;
     drop(Box::from_raw(raw));
     val + *raw
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Пустой слайд не должен вызывать ошибку.
+    #[test]
+    fn regress_sum_even_empty() {
+        assert_eq!(sum_even(&[]), 0);
+    }
+
+    /// Проверим, что у нас итерация не вызывает дополнительного шага.
+    #[test]
+    fn regress_sum_even_last() {
+        assert_eq!(sum_even(&[4]), 4);
+    }
+
+    /// Проверка корректности работы функции.
+    #[test]
+    fn regress_sum_even() {
+        assert_eq!(sum_even(&[1, 2, 3, 5, 6, 8, 19, 21]), 16);
+    }
+
+    /// Проверяет, что отрицательные числа не учитываются в расчёте.
+    #[test]
+    fn regress_average_not_positive_ignore() {
+        assert_eq!(average_positive(&[-1, -2, -3, -4, -5]), 0.0);
+    }
+
+    /// Проверяет корректность выборки для подсчёта среднего.
+    #[test]
+    fn regress_average_positive() {
+        assert_eq!(average_positive(&[2, -2, -5, 2, 2]), 2.0);
+    }
 }
