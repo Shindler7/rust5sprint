@@ -134,11 +134,33 @@ def tool_exists(tool: str | os.PathLike[str]) -> bool:
     return shutil.which(tool_str) is not None
 
 
+def detect_target() -> str:
+    """Определить `target` для текущей ОС."""
+
+    target: str = ''
+    match platform.system().lower():
+        case 'linux':
+            target = 'x86_64-unknown-linux-gnu'
+        case 'windows':
+            target = 'x86_64-pc-windows-msvc'
+        case 'darwin':
+            if platform.machine().lower() == 'arm64':
+                target = 'aarch64-apple-darwin'
+            else:
+                target = 'x86_64-apple-darwin'
+        case _:
+            raise RuntimeError('Неподдерживаемая платформа')
+
+    return target
+
+
 def main() -> None:
     log_file = make_log_file()
     print(f'Запуск тестов. Результаты будут записаны в файл:\n {log_file}')
 
-    key_test_args = ['--tests']
+    # Обеспечить правильную работу ASan и TSan.
+    key_test_args = ['--target', detect_target(), '--tests']
+    cmd = ['cargo', '+nightly', 'test', ' -Zbuild-std', *key_test_args]
 
     steps: list[Step] = [
         Step(
@@ -154,20 +176,21 @@ def main() -> None:
             cmd=['valgrind', '--leak-check=full', 'cargo', 'test', '--tests'],
             linux_only=True,
         ),
-        # Step(
-        #     name='cargo valgrind',
-        #     cmd=['cargo', 'valgrind', 'run'],
-        #     linux_only=True,
-        # ),
         Step(
             name='ASan (nightly)',
-            cmd=['cargo', '+nightly', 'test', *key_test_args],
-            env_overrides={'RUSTFLAGS': '-Zsanitizer=address'},
+            cmd=cmd,
+            env_overrides={
+                'RUSTFLAGS': '-Zsanitizer=address',
+                'CARGO_TARGET_DIR': 'target/asan'
+            },
         ),
         Step(
             name='TSan (nightly)',
-            cmd=['cargo', '+nightly', 'test', *key_test_args],
-            env_overrides={'RUSTFLAGS': '-Zsanitizer=thread'},
+            cmd=cmd,
+            env_overrides={
+                'RUSTFLAGS': '-Zsanitizer=thread',
+                'CARGO_TARGET_DIR': 'target/tsan'
+            },
         ),
     ]
 
