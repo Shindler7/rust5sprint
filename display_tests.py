@@ -177,6 +177,11 @@ def main() -> None:
             linux_only=True,
         ),
         Step(
+            name='valgrid (...) target/debug/demo',
+            cmd=['valgrind', '-s', '--leak-check=full',
+                 '--show-leak-kinds=all', 'target/debug/demo']
+        ),
+        Step(
             name='ASan (nightly)',
             cmd=cmd,
             env_overrides={
