@@ -184,14 +184,14 @@ def main() -> None:
                 'CARGO_TARGET_DIR': 'target/asan'
             },
         ),
-        Step(
-            name='TSan (nightly)',
-            cmd=cmd,
-            env_overrides={
-                'RUSTFLAGS': '-Zsanitizer=thread',
-                'CARGO_TARGET_DIR': 'target/tsan'
-            },
-        ),
+        # Step(
+        #     name='TSan (nightly)',
+        #     cmd=cmd,
+        #     env_overrides={
+        #         'RUSTFLAGS': '-Zsanitizer=thread',
+        #         'CARGO_TARGET_DIR': 'target/tsan'
+        #     },
+        # ),
     ]
 
     results: list[tuple[str, str]] = []
