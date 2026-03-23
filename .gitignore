@@ -1,2 +1,6 @@
 /.idea
 /target
+
+# Perf Data.
+/perf.data
+/perf.data.old
