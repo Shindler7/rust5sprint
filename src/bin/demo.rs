@@ -1,52 +1,95 @@
-use rand::distr::uniform::SampleUniform;
-use rand::{random_iter, RngExt, SeedableRng};
-use rand::distr::{Distribution, StandardUniform};
-use rand::rngs::SmallRng;
-use broken_app::{algo, leak_buffer, normalize, sum_even};
+use broken_app::{
+    algo::{slow_dedup, slow_fib},
+    leak_buffer, sum_even,
+};
+use rand::{
+    RngExt, SeedableRng,
+    distr::uniform::{SampleRange, SampleUniform},
+    rngs::SmallRng,
+};
 
+#[cfg(not(feature = "benchmark"))]
+use broken_app::normalize;
+
+#[cfg(feature = "benchmark")]
+use std::{hint::black_box, time::{Instant, Duration}};
+
+/// Константа длины массивов.
+const SEQ_LEN: usize = 100_000_000;
+
+#[cfg(not(feature = "benchmark"))]
 fn main() {
-    const MAX_LEN: usize = 50_000;
-    
-    let nums_vec: Vec<i64> = random_sequence(MAX_LEN);
-    // let nums = [1, 2, 3, 4];
-    println!("sum_even: {}", sum_even(&nums_vec));
+    let nums = random_sequence(0..=100, SEQ_LEN);
+    println!("sum_even: {}", sum_even(&nums));
 
-    let data_vec: Vec<u8> = random_sequence(MAX_LEN);
-    // let data = [1_u8, 0, 2, 3];
-    println!("non-zero bytes: {}", leak_buffer(&data_vec));
+    let data = random_sequence(0..=255, SEQ_LEN);
+    println!("non-zero bytes: {}", leak_buffer(&data));
 
     let text = " Hello World ";
     println!("normalize: {}", normalize(text));
 
-    for i in MAX_LEN {
-        let fib = algo::slow_fib(20);
-        // println!("fib(20): {}", fib);        
-    }
+    let slow_num = 40u64;
+    let fib = slow_fib(slow_num);
+    println!("fib({}): {}", slow_num, fib);
 
-
-    let uniq = algo::slow_dedup(&[1, 2, 2, 3, 1, 4, 4]);
+    let nums = random_sequence(0..=100, SEQ_LEN);
+    let uniq = slow_dedup(&nums);
     println!("dedup: {:?}", uniq);
 }
 
+#[cfg(feature = "benchmark")]
+fn main() {
+    println!("benchmark");
 
-/// Возвращает случайное число в заданном диапазоне.
-fn random<T>(min: T, max: T) -> T
-where 
-    T: SampleUniform + PartialOrd
-{
-    let mut rng = rand::rng();
-    rng.random_range(min..=max)
+    let even_data = random_sequence(0..=100, SEQ_LEN);
+    let leak_data = random_sequence(0..=255, SEQ_LEN);
+    let dedup_data = random_sequence(0..=100, SEQ_LEN);
+
+    let runs = 10usize;
+    let mut timings: Vec<Duration> = Vec::with_capacity(runs);
+
+    for _ in 0..runs {
+        let start = Instant::now();
+
+        black_box(sum_even(black_box(&even_data)));
+        black_box(leak_buffer(black_box(&leak_data)));
+        black_box(slow_fib(black_box(40)));
+        black_box(slow_dedup(black_box(&dedup_data)));
+
+        timings.push(start.elapsed());
+    }
+
+    let total: Duration = timings.iter().copied().sum();
+    let min = timings.iter().min().copied().unwrap();
+    let max = timings.iter().max().copied().unwrap();
+    let avg = total / runs as u32;
+
+    println!("\n=== Final benchmark ===");
+    println!(
+        "min: {:.3} s, max: {:.3} s, avg: {:.3} s, total: {:.3} s",
+        min.as_secs_f64(),
+        max.as_secs_f64(),
+        avg.as_secs_f64(),
+        total.as_secs_f64()
+    );
 }
 
-
 /// Генератор последовательности заданной длины.
-/// 
+///
 /// Возвращает вектор с заданным заказчиком типом.
-fn random_sequence<T>(max: usize) -> Vec<T>
+///
+/// ## Args
+///
+/// - `range` — диапазон со значениями `min` и `max` для выбора случайного
+///   числа
+/// - `len` — длина финальной последовательности, состоящей из случайных
+///   чисел
+fn random_sequence<T, R>(range: R, len: usize) -> Vec<T>
 where
-    T: Sized,
-    StandardUniform: Distribution<T>
+    T: SampleUniform,
+    R: SampleRange<T> + Clone,
 {
-    let rng = SmallRng::seed_from_u64(0);
-    rng.random_iter().take(max).collect::<Vec<T>>()
+    let mut rng = SmallRng::from_rng(&mut rand::rng());
+    // (0..=len).map(|_| range.sample(&mut rng)).collect()
+    (0..len).map(|_| rng.random_range(range.clone())).collect()
 }
