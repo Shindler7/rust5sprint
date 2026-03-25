@@ -37,6 +37,21 @@ fn main() {
     println!("dedup: {:?}", uniq);
 }
 
+/// Реализация `main` для проведения профилирования.
+///
+/// ## Компиляция
+///
+/// ```bash
+/// cargo build --release --features benchmark
+/// ```
+///
+/// ## Профилирование через flamegraph
+///
+/// Провести измерение одновременно с компиляцией можно в одну команду.
+///
+/// ```bash
+/// cargo flamegraph --release --features benchmark --bin demo
+/// ```
 #[cfg(feature = "benchmark")]
 fn main() {
     println!("benchmark");
@@ -80,16 +95,13 @@ fn main() {
 ///
 /// ## Args
 ///
-/// - `range` — диапазон со значениями `min` и `max` для выбора случайного
-///   числа
-/// - `len` — длина финальной последовательности, состоящей из случайных
-///   чисел
+/// - `range` — диапазон выбора случайного числа
+/// - `len` — длина финальной последовательности
 fn random_sequence<T, R>(range: R, len: usize) -> Vec<T>
 where
     T: SampleUniform,
     R: SampleRange<T> + Clone,
 {
     let mut rng = SmallRng::from_rng(&mut rand::rng());
-    // (0..=len).map(|_| range.sample(&mut rng)).collect()
     (0..len).map(|_| rng.random_range(range.clone())).collect()
 }
