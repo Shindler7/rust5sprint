@@ -4,3 +4,6 @@
 # Perf Data.
 /perf.data
 /perf.data.old
+
+# Project temp
+/.cp/
