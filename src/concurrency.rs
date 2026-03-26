@@ -1,39 +1,88 @@
-use std::thread;
-use std::time::Duration;
+use anyhow::{anyhow, Context, Result as AnyhowResult};
+use std::sync::MutexGuard;
+use std::{
+    sync::{LazyLock, Mutex},
+    thread,
+};
 
-static mut COUNTER: u64 = 0;
+/// Счётчик.
+static COUNTER: LazyLock<Mutex<u64>> = LazyLock::new(|| Mutex::new(0_u64));
 
 /// Небезопасный инкремент через несколько потоков.
 /// Использует global static mut без синхронизации — data race.
-pub fn race_increment(iterations: usize, threads: usize) -> u64 {
-    unsafe {
-        COUNTER = 0;
-    }
-    let mut handles = Vec::new();
+///
+/// ## Оптимизация
+///
+/// Код обновлён с учётом использования [`Mutex`]. Блоки unsafe не требуются,
+/// и удалены.
+pub fn race_increment(iterations: usize, threads: usize) -> AnyhowResult<u64> {
+    reset_counter()?;
+
+    let mut handles = Vec::with_capacity(threads);
     for _ in 0..threads {
-        handles.push(thread::spawn(move || {
+        handles.push(thread::spawn(move || -> AnyhowResult<()> {
             for _ in 0..iterations {
-                unsafe {
-                    COUNTER += 1;
-                }
+                let mut c = counter()?;
+                *c += 1;
             }
+            Ok(())
         }));
     }
     for h in handles {
-        let _ = h.join();
+        let worker_result = h.join().map_err(|_| anyhow!("воркер запаниковал"))?;
+        worker_result.context("процесс вернул ошибку")?;
     }
-    unsafe { COUNTER }
+
+    Ok(*counter()?)
 }
 
 /// Плохая «синхронизация» — просто sleep, возвращает потенциально устаревшее значение.
-pub fn read_after_sleep() -> u64 {
-    thread::sleep(Duration::from_millis(10));
-    unsafe { COUNTER }
+///
+/// ## Оптимизация
+///
+/// Синхронизация значений обеспечивается силами [`Mutex`]. В связи с этим
+/// блокировка через `sleep` не требуется.
+pub fn read_after_sleep() -> AnyhowResult<u64> {
+    let counter = counter()?;
+    Ok(*counter)
 }
 
 /// Сброс счётчика (также небезопасен, без синхронизации).
-pub fn reset_counter() {
-    unsafe {
-        COUNTER = 0;
+///
+/// ## Оптимизация
+///
+/// Сброс счётчика преобразован в безопасный.
+pub fn reset_counter() -> AnyhowResult<()> {
+    let mut counter = counter()?;
+    *counter = 0_u64;
+
+    Ok(())
+}
+
+/// Вернуть защищённый [`Mutex`] объект счётчика.
+fn counter() -> AnyhowResult<MutexGuard<'static, u64>> {
+    COUNTER.lock().map_err(|e| anyhow!(e.to_string()))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Тестирование работы со счётчиком.
+    #[test]
+    fn test_race_increment() {
+        {
+            let result = race_increment(15, 1);
+            assert!(result.is_ok());
+            let counter = counter().unwrap();
+            assert_eq!(*counter, 15);
+        }
+
+        {
+            let result = race_increment(25, 3);
+            assert!(result.is_ok());
+            let counter = counter().unwrap();
+            assert_eq!(*counter, 75);
+        }
     }
 }

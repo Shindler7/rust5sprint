@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 ///
 /// ## Оптимизация.
 ///
-/// Измененён принцип формирования выходного реестра: с использованием
+/// Изменён принцип формирования выходного реестра: с использованием
 /// дополнительного метода бинарного поиска индекса.
 pub fn slow_dedup(values: &[u64]) -> Vec<u64> {
     let mut out = Vec::new();
@@ -24,7 +24,7 @@ pub fn slow_dedup(values: &[u64]) -> Vec<u64> {
 /// Алгоритм работает с сортированным массивом.
 fn binary_index_search<T>(value: &T, range: &[T]) -> Option<usize>
 where
-    T: Ord + std::fmt::Display + std::fmt::Debug,
+    T: Ord,
 {
     if range.is_empty() {
         return Some(0);
@@ -53,8 +53,6 @@ where
         },
         _ => {
             let mid = range.len() / 2;
-            println!("mid: {}, value: {}", mid, value);
-            println!("{:?}", range);
 
             match value.cmp(&range[mid]) {
                 Ordering::Equal => None,
