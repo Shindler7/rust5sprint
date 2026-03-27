@@ -1,0 +1,129 @@
+
+===============================================================================
+STEP: cargo test -- --nocapture
+CMD: cargo test -- --nocapture
+===============================================================================
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running unittests src/lib.rs (target/debug/deps/broken_app-ce63bcd44b80e56e)
+
+running 10 tests
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test algo::tests::test_slow_dedup ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test tests::regress_use_after_free ... ok
+test concurrency::tests::test_race_increment ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/debug/deps/demo-fcad72179b25a4f8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/debug/deps/integration-9625f0cc44c83fd6)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test sums_even_numbers ... ok
+test normalize_simple ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests broken_app
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: cargo +nightly miri test
+CMD: cargo +nightly miri test
+===============================================================================
+   Compiling anyhow v1.0.102
+   Compiling criterion v0.5.1
+   Compiling broken-app v0.1.0 (/Users/barmichev/Coding/universe/yandex/5sprint/rust5sprint)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.25s
+     Running unittests src/lib.rs (target/miri/aarch64-apple-darwin/debug/deps/broken_app-a1edde1006514207)
+
+running 10 tests
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test algo::tests::test_slow_dedup ... FAILED
+test concurrency::tests::test_race_increment ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test tests::regress_use_after_free ... ok
+
+failures:
+
+---- algo::tests::test_slow_dedup stdout ----
+
+thread 'algo::tests::test_slow_dedup' (3) panicked at src/algo.rs:109:13:
+assertion `left == right` failed
+  left: 190392490709136
+ right: 190392490709135
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+note: in Miri, you may have to set `MIRIFLAGS=-Zmiri-env-forward=RUST_BACKTRACE` for the environment variable to have an effect
+
+
+failures:
+    algo::tests::test_slow_dedup
+
+test result: FAILED. 9 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.55s
+
+error: test failed, to rerun pass `--lib`
+
+[EXIT CODE] (101)
+
+===============================================================================
+STEP: ASan (nightly)
+CMD: cargo +nightly test  -Zbuild-std --target aarch64-apple-darwin --tests
+ENV: {'RUSTFLAGS': '-Zsanitizer=address', 'CARGO_TARGET_DIR': 'target/asan'}
+===============================================================================
+   Compiling anyhow v1.0.102
+   Compiling criterion v0.5.1
+   Compiling broken-app v0.1.0 (/Users/barmichev/Coding/universe/yandex/5sprint/rust5sprint)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.18s
+     Running unittests src/lib.rs (target/asan/aarch64-apple-darwin/debug/deps/broken_app-dcad1da2ff752767)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/asan/aarch64-apple-darwin/debug/deps/demo-ef18e59f12db5c6f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/asan/aarch64-apple-darwin/debug/deps/integration-577e16cd92ac1103)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+
+Итог:
+- OK         cargo test -- --nocapture
+- FAIL (101) cargo +nightly miri test
+- SKIP       valgrind --leak-check=full cargo test --tests
+- SKIP       valgrid (...) target/debug/demo
+- OK         ASan (nightly)

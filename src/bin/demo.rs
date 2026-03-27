@@ -12,7 +12,10 @@ use rand::{
 use broken_app::normalize;
 
 #[cfg(feature = "benchmark")]
-use std::{hint::black_box, time::{Instant, Duration}};
+use std::{
+    hint::black_box,
+    time::{Duration, Instant},
+};
 
 /// Константа длины массивов.
 const SEQ_LEN: usize = 100_000_000;

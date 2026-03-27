@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Context, Result as AnyhowResult};
+use anyhow::{Context, Result as AnyhowResult, anyhow};
 use std::sync::MutexGuard;
 use std::{
     sync::{LazyLock, Mutex},
