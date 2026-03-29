@@ -63,9 +63,8 @@ pub fn average_positive(values: &[i64]) -> f64 {
 /// Исправлено: убрано неоправданное использование `unsafe`-кода, а также
 /// `drop` перед считыванием данных.
 pub fn use_after_free() -> i32 {
-    let b = Box::new(42_i32);
-    let val = *b;
-    val + *b
+    let b = 42_i32;
+    b + b
 }
 
 #[cfg(test)]
