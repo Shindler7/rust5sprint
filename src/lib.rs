@@ -26,8 +26,18 @@ pub fn leak_buffer(input: &[u8]) -> usize {
 
 /// Небрежная нормализация строки: удаляем пробелы и приводим к нижнему регистру,
 /// но игнорируем повторяющиеся пробелы/табуляции внутри текста.
+///
+/// ## Примечание
+///
+/// Исправлен недостаток в игнорировании повторяющихся пробелов, табуляций
+/// внутри текста. Сделано более универсальное решение. Удаление пробелов
+/// между словами сохранено с ориентиром на базовый интеграционный тест.
 pub fn normalize(input: &str) -> String {
-    input.replace(' ', "").to_lowercase()
+    input
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join("")
+        .to_lowercase()
 }
 
 /// Логическая ошибка: усредняет по всем элементам, хотя требуется учитывать
@@ -89,6 +99,12 @@ mod tests {
         assert_eq!(sum_even(&[1, 2, 3, 5, 6, 8, 19, 21]), 16);
     }
 
+    /// Проверка корректности подсчёта нулевых значений в списке.
+    #[test]
+    fn regress_leak_buffer_counts_non_zero() {
+        assert_eq!(leak_buffer(&[0, 3, 5, 7, 0, 4, 8, 0]), 5);
+    }
+
     /// Проверяет, что отрицательные числа не учитываются в расчёте.
     #[test]
     fn regress_average_not_positive_ignore() {
@@ -106,5 +122,20 @@ mod tests {
     fn regress_use_after_free() {
         let result = use_after_free();
         assert_eq!(result, 42 + 42);
+    }
+
+    /// Тестирование корректности нормализации текста в части пробелов.
+    #[test]
+    fn regress_normalize_text_spaces() {
+        let test_cases = [
+            (" Hello World ", "helloworld"),
+            ("Hello   woRLd", "helloworld"),
+            (" hellO  WorlD ", "helloworld"),
+            ("JUST   dO    it ", "justdoit"),
+        ];
+
+        for (input, expected) in test_cases {
+            assert_eq!(normalize(input), expected);
+        }
     }
 }

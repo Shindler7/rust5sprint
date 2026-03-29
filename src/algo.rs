@@ -1,11 +1,7 @@
 use std::cmp::Ordering;
 
-/// Намеренно низкопроизводительная реализация.
-///
-/// ## Оптимизация.
-///
-/// Изменён принцип формирования выходного реестра: с использованием
-/// дополнительного метода бинарного поиска индекса.
+/// Дедуплицировать переданный список значений, возвратив вектор с уникальными
+/// отсортированными элементами.
 pub fn slow_dedup(values: &[u64]) -> Vec<u64> {
     let mut out = Vec::new();
     for v in values {
@@ -101,13 +97,43 @@ mod tests {
         a
     }
 
-    /// Тестирование корректности нового алгоритма `slow_fib`.
+    /// Тестирование корректности нового алгоритма [`slow_fib`].
     #[test]
-    fn test_slow_dedup() {
+    fn regress_slow_fib() {
         let nums = [20, 34, 50, 70];
         for n in nums {
             assert_eq!(slow_fib(n), fibonacci(n));
         }
+    }
+
+    /// Проверить результаты [`slow_fib`] на малых значениях.
+    #[test]
+    fn regress_slow_fib_small_values() {
+        let expected = [0, 1, 1, 2, 3, 5, 8, 13, 21];
+        for (n, value) in expected.into_iter().enumerate() {
+            assert_eq!(slow_fib(n as u64), value);
+        }
+    }
+
+    /// Проверка корректности формирования выходного списка [`slow_dedup`].
+    #[test]
+    fn regress_test_slow_dedup() {
+        let nums = [5, 3, 4, 4, 8, 9, 10, 1, 2, 2, 5];
+        assert_eq!(slow_dedup(&nums), [1, 2, 3, 4, 5, 8, 9, 10]);
+    }
+
+    /// Тестирование поведения [`slow_dedup`] при переданном пустом списке.
+    #[test]
+    fn regress_slow_dedup_is_empty() {
+        assert_eq!(slow_dedup(&[]), []);
+    }
+
+    /// Тестирование, что [`slow_dedup`] возвращает корректно список, если
+    /// на вход уже был передан правильный.
+    #[test]
+    fn regress_slow_dedup_correct_input() {
+        let nums = [1, 2, 3, 4, 5];
+        assert_eq!(slow_dedup(&nums), nums);
     }
 
     /// Тестирование бинарной функции: проверка правильного ответа

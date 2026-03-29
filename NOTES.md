@@ -1,5 +1,39 @@
 # Основные заметки по проекту.
 
+## Python-скрипт (display_tests.py)
+
+Для проекта создан [Python-скрипт](display_tests.py), который автоматически
+запускает указанные ниже варианты тестирования (кроме `gdb/lldb`, а также
+профилирования и бенчмарков).
+
+Отчёты логируются в файлы (каталог `artifacts/logs`).
+
+- 🔄 Изменено в версии 0.1.1: используется новый каталог сохранения логов,
+  вместо предыдущего (`tests/reports`). Удалены лишние файлы логирования.
+
+Для изменения набора тестов нужно отредактировать список `steps` в функции
+`main`.
+
+### Запуск
+
+```shell
+python3 display_tests.py
+```
+
+### История логирования
+
+#### До оптимизации
+
+[20260323_144110_tests.log](artifacts/logs/20260323_144110_tests.log)
+
+#### После оптимизации
+
+[20260329_134541_tests.log](artifacts/logs/20260329_134541_tests.log)
+
+#### После первого ревью (и обновления кода)
+
+[20260329_170241_tests.log](artifacts/logs/20260329_170241_tests.log)
+
 ## Инфраструктура тестирования
 
 ### Отладчик gdb
@@ -57,28 +91,20 @@ Miri — это интерпретатор промежуточного пред
 #### Установка
 
 ```shell
-cargo component add miri
+rustup toolchain install nightly
+rustup component add miri --toolchain nightly
 ```
 
 #### Использование
 
-**Запуск программы и выполнение через интерпретатор**
-
-```shell
-cargo miri run
-```
-
-**Запуск тестов**
-
 ```shell
 cargo +nightly miri test
 ```
 
-Для "ночных сборок":
+#### Успешный результат
 
-```shell
-cargo +nightly miri test
-```
+- Miri не сообщает об undefined behavior (UB) (неопределённое поведение)
+- все тесты успешно проходят
 
 ### Valgrind
 
@@ -104,13 +130,18 @@ brew install valgrind
 Рекомендуемый запуск для Rust-программ:
 
 ```shell
-valgrind --leak-check=full --show-leak-kinds=all target/debug/demo
+valgrind -s --leak-check=full --show-leak-kinds=all target/debug/demo
 ```
 
-Здесь:
+Ключи:
 
 - `--show-leak-kinds=all` — показывает все типы утечек
 - `--leak-check=full` — включает полную проверку утечек памяти
+
+#### Успешный результат
+
+- нет ошибок чтения/записи, работы с памятью
+- нет потерянных (косвенно потерянных) данных, указателей
 
 ### Sanitizers (nightly)
 
@@ -125,15 +156,8 @@ valgrind --leak-check=full --show-leak-kinds=all target/debug/demo
 
 Рекомендуемый набор: `nightly toolchain` и компонент `rust-src`.
 
-**nightly toolchain**
-
 ```shell
 rustup toolchain install nightly
-```
-
-**rust-src**
-
-```shell
 rustup component add rust-src --toolchain nightly
 ```
 
@@ -149,9 +173,13 @@ rustup component add rust-src --toolchain nightly
 Документация: https://clang.llvm.org/docs/AddressSanitizer.html
 
 ```shell
-RUSTFLAGS="-Zsanitizer=thread" \
+RUSTFLAGS="-Zsanitizer=address" \
 cargo +nightly test -Zbuild-std --target x86_64-unknown-linux-gnu
 ```
+
+#### Успешный результат
+
+- AddressSanitizer не сообщает об ошибках памяти
 
 **TSan**
 
@@ -164,17 +192,41 @@ RUSTFLAGS="-Zsanitizer=thread" \
 cargo +nightly test -Zbuild-std --target x86_64-unknown-linux-gnu
 ```
 
-## display_tests.py
+#### Успешный результат
 
-Для проекта создан собственный Python-скрипт `display_tests.py`, который
-автоматически запускает все варианты тестирования из списка выше (кроме
-`gdb/lldb`), а отчёты логирует в файлы (каталог `tests/reports`).
+- ThreadSanitizer не сообщает о data race
 
-Для изменения настроек можно внести коррективы в набор шагов (`Step`)
-в функции `main()`.
+Возможно ложно-положительное срабатывание на зависимые крейты (наблюдалось
+в проекте). Необходимо оценивать степень угрозы с учётом структуры проекта
+и воздействия на приложение.
 
-### Запуск
+### Бенчмарки
+
+Тесты определения производительности.
+
+#### Использование
 
 ```shell
-python3 display_tests.py
+mkdir -p artifacts
+cargo bench --bench baseline > artifacts/baseline_before.txt
 ```
+
+#### Успешный результат
+
+Пример запуска в проекте (до оптимизации):
+
+```text
+sum_even: 18.166µs
+slow_fib: 10.651916ms
+slow_dedup: 9.165709ms
+sum_even: 6.875µs
+slow_fib: 3.911584ms
+slow_dedup: 7.671333ms
+sum_even: 8.083µs
+slow_fib: 4.104959ms
+slow_dedup: 8.228292ms
+```
+
+## Профилирование
+
+См. отдельный [Отчёт по профилированию](REPORT.md).

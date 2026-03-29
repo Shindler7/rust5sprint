@@ -1,88 +1,96 @@
-use anyhow::{Context, Result as AnyhowResult, anyhow};
-use std::sync::MutexGuard;
 use std::{
-    sync::{LazyLock, Mutex},
+    sync::atomic::{AtomicU64, Ordering},
     thread,
 };
 
 /// Счётчик.
-static COUNTER: LazyLock<Mutex<u64>> = LazyLock::new(|| Mutex::new(0_u64));
+static COUNTER: AtomicU64 = AtomicU64::new(0);
 
-/// Небезопасный инкремент через несколько потоков.
-/// Использует global static mut без синхронизации — data race.
-///
-/// ## Оптимизация
-///
-/// Код обновлён с учётом использования [`Mutex`]. Блоки unsafe не требуются,
-/// и удалены.
-pub fn race_increment(iterations: usize, threads: usize) -> AnyhowResult<u64> {
-    reset_counter()?;
+/// Накручивает общий счётчик из нескольких потоков и возвращает итоговое
+/// значение.
+pub fn race_increment(iterations: usize, threads: usize) -> u64 {
+    reset_counter();
 
     let mut handles = Vec::with_capacity(threads);
     for _ in 0..threads {
-        handles.push(thread::spawn(move || -> AnyhowResult<()> {
+        handles.push(thread::spawn(move || {
             for _ in 0..iterations {
-                let mut c = counter()?;
-                *c += 1;
+                increase_counter();
             }
-            Ok(())
         }));
     }
     for h in handles {
-        let worker_result = h.join().map_err(|_| anyhow!("воркер запаниковал"))?;
-        worker_result.context("процесс вернул ошибку")?;
+        let _ = h.join();
     }
 
-    Ok(*counter()?)
+    read_after_sleep()
 }
 
-/// Плохая «синхронизация» — просто sleep, возвращает потенциально устаревшее значение.
-///
-/// ## Оптимизация
-///
-/// Синхронизация значений обеспечивается силами [`Mutex`]. В связи с этим
-/// блокировка через `sleep` не требуется.
-pub fn read_after_sleep() -> AnyhowResult<u64> {
-    let counter = counter()?;
-    Ok(*counter)
+/// Возвращает текущее значение счётчика.
+pub fn read_after_sleep() -> u64 {
+    COUNTER.load(Ordering::SeqCst)
 }
 
-/// Сброс счётчика (также небезопасен, без синхронизации).
-///
-/// ## Оптимизация
-///
-/// Сброс счётчика преобразован в безопасный.
-pub fn reset_counter() -> AnyhowResult<()> {
-    let mut counter = counter()?;
-    *counter = 0_u64;
-
-    Ok(())
+/// Сброс счётчика.
+pub fn reset_counter() {
+    COUNTER.store(0, Ordering::SeqCst);
 }
 
-/// Вернуть защищённый [`Mutex`] объект счётчика.
-fn counter() -> AnyhowResult<MutexGuard<'static, u64>> {
-    COUNTER.lock().map_err(|e| anyhow!(e.to_string()))
+/// Увеличить значение счётчика на единицу.
+fn increase_counter() {
+    COUNTER.fetch_add(1, Ordering::SeqCst);
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::sync::{LazyLock, Mutex};
 
-    /// Тестирование работы со счётчиком.
+    static TEST_GUARD: LazyLock<Mutex<()>> = LazyLock::new(|| Mutex::new(()));
+
+    /// Тестирование работы со счётчиком (один поток).
     #[test]
-    fn test_race_increment() {
-        {
-            let result = race_increment(15, 1);
-            assert!(result.is_ok());
-            let counter = counter().unwrap();
-            assert_eq!(*counter, 15);
-        }
+    fn regress_race_increment_one_thread() {
+        // В одном потоке.
+        let _guard = TEST_GUARD.lock().unwrap();
+        let result = race_increment(15, 1);
+        let counter = COUNTER.load(Ordering::SeqCst);
 
-        {
-            let result = race_increment(25, 3);
-            assert!(result.is_ok());
-            let counter = counter().unwrap();
-            assert_eq!(*counter, 75);
-        }
+        assert_eq!(result, counter);
+        assert_eq!(counter, 15);
+    }
+
+    /// Тестирование счётчика при работе в мульти-потоке.
+    #[test]
+    fn regress_race_increment_multi_threads() {
+        let _guard = TEST_GUARD.lock().unwrap();
+        let result = race_increment(25, 3);
+        let counter = COUNTER.load(Ordering::SeqCst);
+
+        assert_eq!(result, counter);
+        assert_eq!(counter, 75);
+    }
+
+    /// Тестирование сбрасывания счётчика.
+    #[test]
+    fn regress_reset_counter() {
+        let _guard = TEST_GUARD.lock().unwrap();
+        let result = race_increment(25, 3);
+        let counter = COUNTER.load(Ordering::SeqCst);
+        assert_eq!(result, counter);
+
+        reset_counter();
+        let counter = COUNTER.load(Ordering::SeqCst);
+        assert_eq!(counter, 0);
+    }
+
+    /// Тестирование метода увеличения значения счётчика.
+    #[test]
+    fn regress_increase_counter() {
+        let _guard = TEST_GUARD.lock().unwrap();
+        increase_counter();
+        increase_counter();
+        let count = COUNTER.load(Ordering::SeqCst);
+        assert_eq!(count, 2);
     }
 }

@@ -18,7 +18,7 @@ use std::{
 };
 
 /// Константа длины массивов.
-const SEQ_LEN: usize = 100_000_000;
+const SEQ_LEN: usize = 1_000_000;
 
 #[cfg(not(feature = "benchmark"))]
 fn main() {

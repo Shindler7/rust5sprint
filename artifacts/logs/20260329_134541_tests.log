@@ -1,0 +1,1002 @@
+
+===============================================================================
+STEP: cargo test -- --nocapture
+CMD: cargo test -- --nocapture
+===============================================================================
+   Compiling proc-macro2 v1.0.103
+   Compiling unicode-ident v1.0.22
+   Compiling quote v1.0.42
+   Compiling cfg-if v1.0.4
+   Compiling libc v0.2.178
+   Compiling crossbeam-utils v0.8.21
+   Compiling serde_core v1.0.228
+   Compiling zerocopy v0.8.31
+   Compiling serde v1.0.228
+   Compiling getrandom v0.4.2
+   Compiling autocfg v1.5.0
+   Compiling rand_core v0.10.0
+   Compiling either v1.15.0
+   Compiling anyhow v1.0.102
+   Compiling rayon-core v1.13.0
+   Compiling serde_json v1.0.145
+   Compiling cpufeatures v0.3.0
+   Compiling regex-syntax v0.8.8
+   Compiling memchr v2.7.6
+   Compiling ciborium-io v0.2.2
+   Compiling chacha20 v0.10.0
+   Compiling plotters-backend v0.3.7
+   Compiling ryu v1.0.20
+   Compiling clap_lex v0.7.6
+   Compiling anstyle v1.0.13
+   Compiling itoa v1.0.15
+   Compiling clap_builder v4.5.53
+   Compiling num-traits v0.2.19
+   Compiling plotters-svg v0.3.7
+   Compiling itertools v0.10.5
+   Compiling cast v0.3.0
+   Compiling same-file v1.0.6
+   Compiling anes v0.1.6
+   Compiling regex-automata v0.4.13
+   Compiling walkdir v2.5.0
+   Compiling once_cell v1.21.3
+   Compiling oorandom v11.1.5
+   Compiling criterion-plot v0.5.0
+   Compiling clap v4.5.53
+   Compiling crossbeam-epoch v0.9.18
+   Compiling regex v1.12.2
+   Compiling crossbeam-deque v0.8.6
+   Compiling syn v2.0.111
+   Compiling plotters v0.3.7
+   Compiling is-terminal v0.4.17
+   Compiling rayon v1.11.0
+   Compiling rand v0.10.0
+   Compiling broken-app v0.1.0 (/mnt/d/Coding/yandex/5sprint/5final/broken-app)
+   Compiling zerocopy-derive v0.8.31
+   Compiling serde_derive v1.0.228
+   Compiling half v2.7.1
+   Compiling tinytemplate v1.2.1
+   Compiling ciborium-ll v0.2.2
+   Compiling ciborium v0.2.2
+   Compiling criterion v0.5.1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 13.74s
+     Running unittests src/lib.rs (target/debug/deps/broken_app-4c4fbfab81e7e3c3)
+
+running 10 tests
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test algo::tests::test_slow_dedup ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test concurrency::tests::test_race_increment ... ok
+test tests::regress_use_after_free ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/debug/deps/demo-7b8742b3825a5829)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/debug/deps/integration-481738a68a5378ca)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests broken_app
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: cargo +nightly miri test
+CMD: cargo +nightly miri test
+===============================================================================
+Preparing a sysroot for Miri (target: x86_64-unknown-linux-gnu)... done
+   Compiling proc-macro2 v1.0.103
+   Compiling unicode-ident v1.0.22
+   Compiling quote v1.0.42
+   Compiling cfg-if v1.0.4
+   Compiling libc v0.2.178
+   Compiling crossbeam-utils v0.8.21
+   Compiling serde_core v1.0.228
+   Compiling zerocopy v0.8.31
+   Compiling autocfg v1.5.0
+   Compiling serde v1.0.228
+   Compiling rand_core v0.10.0
+   Compiling getrandom v0.4.2
+   Compiling serde_json v1.0.145
+   Compiling rayon-core v1.13.0
+   Compiling cpufeatures v0.3.0
+   Compiling either v1.15.0
+   Compiling anyhow v1.0.102
+   Compiling plotters-backend v0.3.7
+   Compiling anstyle v1.0.13
+   Compiling regex-syntax v0.8.8
+   Compiling clap_lex v0.7.6
+   Compiling chacha20 v0.10.0
+   Compiling itoa v1.0.15
+   Compiling memchr v2.7.6
+   Compiling ryu v1.0.20
+   Compiling ciborium-io v0.2.2
+   Compiling clap_builder v4.5.53
+   Compiling plotters-svg v0.3.7
+   Compiling itertools v0.10.5
+   Compiling cast v0.3.0
+   Compiling same-file v1.0.6
+   Compiling walkdir v2.5.0
+   Compiling once_cell v1.21.3
+   Compiling oorandom v11.1.5
+   Compiling anes v0.1.6
+   Compiling num-traits v0.2.19
+   Compiling regex-automata v0.4.13
+   Compiling criterion-plot v0.5.0
+   Compiling clap v4.5.53
+   Compiling crossbeam-epoch v0.9.18
+   Compiling regex v1.12.2
+   Compiling crossbeam-deque v0.8.6
+   Compiling syn v2.0.111
+   Compiling is-terminal v0.4.17
+   Compiling rand v0.10.0
+   Compiling rayon v1.11.0
+   Compiling plotters v0.3.7
+   Compiling broken-app v0.1.0 (/mnt/d/Coding/yandex/5sprint/5final/broken-app)
+   Compiling zerocopy-derive v0.8.31
+   Compiling serde_derive v1.0.228
+   Compiling half v2.7.1
+   Compiling tinytemplate v1.2.1
+   Compiling ciborium-ll v0.2.2
+   Compiling ciborium v0.2.2
+   Compiling criterion v0.5.1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 13.18s
+     Running unittests src/lib.rs (target/miri/x86_64-unknown-linux-gnu/debug/deps/broken_app-150b24b46c9c1488)
+
+running 10 tests
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test algo::tests::test_slow_dedup ... ok
+test concurrency::tests::test_race_increment ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test tests::regress_use_after_free ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.45s
+
+     Running unittests src/bin/demo.rs (target/miri/x86_64-unknown-linux-gnu/debug/deps/demo-fc26b3a492445a44)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/integration.rs (target/miri/x86_64-unknown-linux-gnu/debug/deps/integration-1a17104b422d637f)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.71s
+
+   Doc-tests broken_app
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: valgrind --leak-check=full cargo test --tests
+CMD: valgrind --leak-check=full cargo test --tests
+===============================================================================
+==74859== Memcheck, a memory error detector
+==74859== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==74859== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==74859== Command: cargo test --tests
+==74859== 
+   Compiling proc-macro2 v1.0.103
+   Compiling quote v1.0.42
+   Compiling libc v0.2.178
+   Compiling serde_core v1.0.228
+   Compiling crossbeam-utils v0.8.21
+   Compiling zerocopy v0.8.31
+   Compiling serde v1.0.228
+   Compiling getrandom v0.4.2
+   Compiling serde_json v1.0.145
+   Compiling rayon-core v1.13.0
+   Compiling anyhow v1.0.102
+   Compiling num-traits v0.2.19
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-deque v0.8.6
+   Compiling plotters v0.3.7
+   Compiling syn v2.0.111
+   Compiling is-terminal v0.4.17
+   Compiling rand v0.10.0
+   Compiling rayon v1.11.0
+   Compiling broken-app v0.1.0 (/mnt/d/Coding/yandex/5sprint/5final/broken-app)
+   Compiling zerocopy-derive v0.8.31
+   Compiling serde_derive v1.0.228
+   Compiling half v2.7.1
+   Compiling tinytemplate v1.2.1
+   Compiling ciborium-ll v0.2.2
+   Compiling ciborium v0.2.2
+   Compiling criterion v0.5.1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.13s
+     Running unittests src/lib.rs (target/debug/deps/broken_app-4c4fbfab81e7e3c3)
+
+running 10 tests
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test algo::tests::test_slow_dedup ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test tests::regress_use_after_free ... ok
+test concurrency::tests::test_race_increment ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/debug/deps/demo-7b8742b3825a5829)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/debug/deps/integration-481738a68a5378ca)
+
+running 6 tests
+test averages_only_positive ... ok
+test dedup_preserves_uniques ... ok
+test counts_non_zero_bytes ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: valgrid (...) target/debug/demo
+CMD: valgrind -s --leak-check=full --show-leak-kinds=all target/debug/demo
+===============================================================================
+==75662== Memcheck, a memory error detector
+==75662== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==75662== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==75662== Command: target/debug/demo
+==75662== 
+sum_even: 25225246
+non-zero bytes: 996086
+normalize: helloworld
+fib(40): 102334155
+dedup: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
+==75662== 
+==75662== HEAP SUMMARY:
+==75662==     in use at exit: 544 bytes in 1 blocks
+==75662==   total heap usage: 24 allocs, 23 frees, 17,006,062 bytes allocated
+==75662== 
+==75662== 544 bytes in 1 blocks are still reachable in loss record 1 of 1
+==75662==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==75662==    by 0x15497C: alloc (alloc.rs:95)
+==75662==    by 0x15497C: alloc_impl_runtime (alloc.rs:190)
+==75662==    by 0x15497C: alloc_impl (alloc.rs:312)
+==75662==    by 0x15497C: allocate (alloc.rs:429)
+==75662==    by 0x15497C: try_new_uninit_in<alloc::collections::btree::node::LeafNode<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>, alloc::alloc::Global> (boxed.rs:582)
+==75662==    by 0x15497C: new_uninit_in<alloc::collections::btree::node::LeafNode<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>, alloc::alloc::Global> (boxed.rs:549)
+==75662==    by 0x15497C: new<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (node.rs:87)
+==75662==    by 0x15497C: new_leaf<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (node.rs:225)
+==75662==    by 0x15497C: insert_entry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (entry.rs:403)
+==75662==    by 0x15497C: insert<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (entry.rs:377)
+==75662==    by 0x15497C: insert<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (map.rs:1053)
+==75662==    by 0x15497C: std::sys::pal::unix::stack_overflow::thread_info::set_current_info (thread_info.rs:122)
+==75662==    by 0x15316E: init (stack_overflow.rs:179)
+==75662==    by 0x15316E: init (mod.rs:41)
+==75662==    by 0x15316E: init (rt.rs:118)
+==75662==    by 0x15316E: {closure#0} (rt.rs:173)
+==75662==    by 0x15316E: do_call<std::rt::lang_start_internal::{closure_env#0}, isize> (panicking.rs:581)
+==75662==    by 0x15316E: catch_unwind<isize, std::rt::lang_start_internal::{closure_env#0}> (panicking.rs:544)
+==75662==    by 0x15316E: catch_unwind<std::rt::lang_start_internal::{closure_env#0}, isize> (panic.rs:359)
+==75662==    by 0x15316E: std::rt::lang_start_internal (rt.rs:171)
+==75662==    by 0x12E436: std::rt::lang_start (library/std/src/rt.rs:205)
+==75662==    by 0x12E37D: main (in /mnt/d/Coding/yandex/5sprint/5final/broken-app/target/debug/demo)
+==75662== 
+==75662== LEAK SUMMARY:
+==75662==    definitely lost: 0 bytes in 0 blocks
+==75662==    indirectly lost: 0 bytes in 0 blocks
+==75662==      possibly lost: 0 bytes in 0 blocks
+==75662==    still reachable: 544 bytes in 1 blocks
+==75662==         suppressed: 0 bytes in 0 blocks
+==75662== 
+==75662== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: ASan (nightly)
+CMD: cargo +nightly test  -Zbuild-std --target x86_64-unknown-linux-gnu --tests
+ENV: {'RUSTFLAGS': '-Zsanitizer=address', 'CARGO_TARGET_DIR': 'target/asan'}
+===============================================================================
+   Compiling proc-macro2 v1.0.103
+   Compiling quote v1.0.42
+   Compiling unicode-ident v1.0.22
+   Compiling cfg-if v1.0.4
+   Compiling libc v0.2.178
+   Compiling serde_core v1.0.228
+   Compiling crossbeam-utils v0.8.21
+   Compiling zerocopy v0.8.31
+   Compiling serde v1.0.228
+   Compiling getrandom v0.4.2
+   Compiling rand_core v0.10.0
+   Compiling autocfg v1.5.0
+   Compiling rayon-core v1.13.0
+   Compiling serde_json v1.0.145
+   Compiling anyhow v1.0.102
+   Compiling either v1.15.0
+   Compiling cpufeatures v0.3.0
+   Compiling ciborium-io v0.2.2
+   Compiling clap_lex v0.7.6
+   Compiling regex-syntax v0.8.8
+   Compiling memchr v2.7.6
+   Compiling anstyle v1.0.13
+   Compiling chacha20 v0.10.0
+   Compiling plotters-backend v0.3.7
+   Compiling ryu v1.0.20
+   Compiling itoa v1.0.15
+   Compiling clap_builder v4.5.53
+   Compiling plotters-svg v0.3.7
+   Compiling itertools v0.10.5
+   Compiling same-file v1.0.6
+   Compiling cast v0.3.0
+   Compiling regex-automata v0.4.13
+   Compiling walkdir v2.5.0
+   Compiling num-traits v0.2.19
+   Compiling oorandom v11.1.5
+   Compiling anes v0.1.6
+   Compiling criterion-plot v0.5.0
+   Compiling clap v4.5.53
+   Compiling once_cell v1.21.3
+   Compiling regex v1.12.2
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-deque v0.8.6
+   Compiling syn v2.0.111
+   Compiling is-terminal v0.4.17
+   Compiling rayon v1.11.0
+   Compiling rand v0.10.0
+   Compiling plotters v0.3.7
+   Compiling broken-app v0.1.0 (/mnt/d/Coding/yandex/5sprint/5final/broken-app)
+   Compiling zerocopy-derive v0.8.31
+   Compiling serde_derive v1.0.228
+   Compiling tinytemplate v1.2.1
+   Compiling half v2.7.1
+   Compiling ciborium-ll v0.2.2
+   Compiling ciborium v0.2.2
+   Compiling criterion v0.5.1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.04s
+     Running unittests src/lib.rs (target/asan/x86_64-unknown-linux-gnu/debug/deps/broken_app-7dda72e413d78c70)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/asan/x86_64-unknown-linux-gnu/debug/deps/demo-4af1bf5aa956c4da)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/asan/x86_64-unknown-linux-gnu/debug/deps/integration-8638d206979f2c94)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: TSan (nightly)
+CMD: cargo +nightly test  -Zbuild-std --target x86_64-unknown-linux-gnu --tests
+ENV: {'RUSTFLAGS': '-Zsanitizer=thread', 'CARGO_TARGET_DIR': 'target/tsan'}
+===============================================================================
+   Compiling proc-macro2 v1.0.103
+   Compiling quote v1.0.42
+   Compiling unicode-ident v1.0.22
+   Compiling cfg-if v1.0.4
+   Compiling libc v0.2.178
+   Compiling serde_core v1.0.228
+   Compiling crossbeam-utils v0.8.21
+   Compiling zerocopy v0.8.31
+   Compiling rand_core v0.10.0
+   Compiling getrandom v0.4.2
+   Compiling autocfg v1.5.0
+   Compiling serde v1.0.228
+   Compiling serde_json v1.0.145
+   Compiling cpufeatures v0.3.0
+   Compiling rayon-core v1.13.0
+   Compiling anyhow v1.0.102
+   Compiling either v1.15.0
+   Compiling regex-syntax v0.8.8
+   Compiling ciborium-io v0.2.2
+   Compiling ryu v1.0.20
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `cfg_if`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `cpufeatures`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `rand_core`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand_core-0.10.0/src/lib.rs:2:1
+  |
+2 | //! <style> .badges { display: none; } </style>
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `cfg_if`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `compiler_builtins`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `compiler_builtins`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `cpufeatures`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `compiler_builtins`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `compiler_builtins`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `rand_core`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand_core-0.10.0/src/lib.rs:2:1
+  |
+2 | //! <style> .badges { display: none; } </style>
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `compiler_builtins`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `compiler_builtins`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: could not compile `cpufeatures` (lib) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `cfg-if` (lib) due to 2 previous errors
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ryu`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ryu`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `compiler_builtins`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `compiler_builtins`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `std`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `std`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `alloc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `alloc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `compiler_builtins`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `compiler_builtins`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `libc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `libc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_std_workspace_core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_std_workspace_core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `unwind`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `unwind`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `miniz_oxide`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `miniz_oxide`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `adler2`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `adler2`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `hashbrown`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `hashbrown`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_std_workspace_alloc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_std_workspace_alloc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `std_detect`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `std_detect`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_demangle`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_demangle`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `cfg_if`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `cfg_if`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `addr2line`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `addr2line`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `gimli`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `gimli`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `object`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `object`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `memchr`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `memchr`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `either`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `panic_unwind`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `panic_unwind`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `std`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `std`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `alloc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `alloc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `compiler_builtins`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `compiler_builtins`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `libc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `libc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_std_workspace_core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_std_workspace_core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `unwind`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `unwind`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `miniz_oxide`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `miniz_oxide`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `adler2`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `adler2`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `hashbrown`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `hashbrown`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_std_workspace_alloc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_std_workspace_alloc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `std_detect`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `std_detect`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_demangle`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_demangle`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `cfg_if`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `cfg_if`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `addr2line`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `addr2line`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `gimli`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `gimli`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `object`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `object`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `memchr`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `memchr`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `ciborium_io`
+ --> /home/barmichev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ciborium-io-0.2.2/src/lib.rs:3:1
+  |
+3 | //! Simple, Low-level I/O traits
+  | ^
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `panic_unwind`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `panic_unwind`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: could not compile `rand_core` (lib) due to 2 previous errors
+error: could not compile `ryu` (lib) due to 2 previous errors
+error: could not compile `ciborium-io` (lib) due to 19 previous errors
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `std`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `std`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `alloc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `alloc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `compiler_builtins`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `compiler_builtins`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `libc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `libc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_std_workspace_core`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_std_workspace_core`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `unwind`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `unwind`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `miniz_oxide`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `miniz_oxide`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `adler2`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `adler2`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `hashbrown`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `hashbrown`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_std_workspace_alloc`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_std_workspace_alloc`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `std_detect`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `std_detect`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `rustc_demangle`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `rustc_demangle`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `cfg_if`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `cfg_if`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `addr2line`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `addr2line`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `gimli`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `gimli`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `object`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `object`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `memchr`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `memchr`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: mixing `-Zsanitizer` will cause an ABI mismatch in crate `regex_syntax`
+  |
+  = help: the `-Zsanitizer` flag modifies the ABI so Rust crates compiled with different values of this flag cannot be used together safely
+  = note: `-Zsanitizer=thread` in this crate is incompatible with unset `-Zsanitizer` in dependency `panic_unwind`
+  = help: unset `-Zsanitizer` in this crate or set `-Zsanitizer=thread` in `panic_unwind`
+  = help: if you are sure this will not cause problems, you may use `-Cunsafe-allow-abi-mismatch=sanitizer` to silence this error
+
+error: could not compile `either` (lib) due to 19 previous errors
+error: could not compile `regex-syntax` (lib) due to 19 previous errors
+
+[EXIT CODE] (101)
+
+
+Итог:
+- OK         cargo test -- --nocapture
+- OK         cargo +nightly miri test
+- OK         valgrind --leak-check=full cargo test --tests
+- OK         valgrid (...) target/debug/demo
+- OK         ASan (nightly)
+- FAIL (101) TSan (nightly)

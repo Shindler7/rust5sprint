@@ -20,7 +20,7 @@ from enum import StrEnum
 from io import TextIOWrapper
 from pathlib import Path
 
-LOG_DIR = Path('tests/reports')
+LOG_DIR = Path('artifacts/logs')
 LOG_FILENAME = '{timestamp}_tests.log'
 
 
@@ -189,14 +189,14 @@ def main() -> None:
                 'CARGO_TARGET_DIR': 'target/asan'
             },
         ),
-        # Step(
-        #     name='TSan (nightly)',
-        #     cmd=cmd,
-        #     env_overrides={
-        #         'RUSTFLAGS': '-Zsanitizer=thread',
-        #         'CARGO_TARGET_DIR': 'target/tsan'
-        #     },
-        # ),
+        Step(
+            name='TSan (nightly)',
+            cmd=cmd,
+            env_overrides={
+                'RUSTFLAGS': '-Zsanitizer=thread',
+                'CARGO_TARGET_DIR': 'target/tsan'
+            },
+        ),
     ]
 
     results: list[tuple[str, str]] = []
