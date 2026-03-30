@@ -6,7 +6,7 @@
     - MacBook Air, Apple M4
     - OS: macOS Tahoe 26.3.1 (a)
 - Система 2:
-    - HP Pavilion All-in-One
+    - HP Pavilion All-in-One 27, Intel Core i7-7700T
     - OC: Linux Mint 22.3
 - Rust: `1.94`
 - Инструменты:
