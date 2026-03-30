@@ -198,24 +198,24 @@ def main() -> None:
         Step(
             name='cargo test -- --nocapture',
             cmd=['cargo', 'test', '--', '--nocapture'],
-            ignore=True
+            ignore=False
         ),
         Step(
             name='cargo +nightly miri test',
             cmd=['cargo', '+nightly', 'miri', 'test'],
-            ignore=True,
+            ignore=False,
         ),
         Step(
             name='valgrind --leak-check=full cargo test --tests',
             cmd=['valgrind', '--leak-check=full', 'cargo', 'test', '--tests'],
             linux_only=True,
-            ignore=True,
+            ignore=False,
         ),
         Step(
             name='valgrid (...) target/debug/demo',
             cmd=['valgrind', '-s', '--leak-check=full',
                  '--show-leak-kinds=all', 'target/debug/demo'],
-            ignore=True
+            ignore=False
         ),
         Step(
             name='ASan (nightly)',
