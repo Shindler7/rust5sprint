@@ -1,0 +1,393 @@
+
+===============================================================================
+STEP: cargo test -- --nocapture
+CMD: cargo test -- --nocapture
+===============================================================================
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running unittests src/lib.rs (target/debug/deps/broken_app-f2d9852c9abfed80)
+
+running 19 tests
+test algo::tests::regress_slow_fib ... ok
+test algo::tests::regress_slow_dedup_is_empty ... ok
+test algo::tests::regress_test_slow_dedup ... ok
+test algo::tests::regress_slow_fib_small_values ... ok
+test algo::tests::regress_slow_dedup_correct_input ... ok
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test concurrency::tests::regress_increase_counter ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_leak_buffer_counts_non_zero ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_normalize_text_spaces ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test tests::regress_use_after_free ... ok
+test concurrency::tests::regress_race_increment_multi_threads ... ok
+test concurrency::tests::regress_race_increment_one_thread ... ok
+test concurrency::tests::regress_reset_counter ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/debug/deps/demo-990f45db1f5f4a1a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/debug/deps/integration-ecc1dfa12eb2f840)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test fib_small_numbers ... ok
+test dedup_preserves_uniques ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests broken_app
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: cargo +nightly miri test
+CMD: cargo +nightly miri test
+===============================================================================
+Preparing a sysroot for Miri (target: x86_64-unknown-linux-gnu)... done
+   Compiling proc-macro2 v1.0.103
+   Compiling quote v1.0.42
+   Compiling unicode-ident v1.0.22
+   Compiling cfg-if v1.0.4
+   Compiling libc v0.2.178
+   Compiling serde_core v1.0.228
+   Compiling crossbeam-utils v0.8.21
+   Compiling zerocopy v0.8.31
+   Compiling serde v1.0.228
+   Compiling rand_core v0.10.0
+   Compiling autocfg v1.5.0
+   Compiling getrandom v0.4.2
+   Compiling cpufeatures v0.3.0
+   Compiling rayon-core v1.13.0
+   Compiling serde_json v1.0.145
+   Compiling either v1.15.0
+   Compiling chacha20 v0.10.0
+   Compiling plotters-backend v0.3.7
+   Compiling memchr v2.7.6
+   Compiling anstyle v1.0.13
+   Compiling crossbeam-epoch v0.9.18
+   Compiling num-traits v0.2.19
+   Compiling ciborium-io v0.2.2
+   Compiling regex-syntax v0.8.8
+   Compiling crossbeam-deque v0.8.6
+   Compiling syn v2.0.111
+   Compiling itoa v1.0.15
+   Compiling clap_lex v0.7.6
+   Compiling ryu v1.0.20
+   Compiling clap_builder v4.5.53
+   Compiling plotters-svg v0.3.7
+   Compiling itertools v0.10.5
+   Compiling rand v0.10.0
+   Compiling same-file v1.0.6
+   Compiling cast v0.3.0
+   Compiling plotters v0.3.7
+   Compiling walkdir v2.5.0
+   Compiling regex-automata v0.4.13
+   Compiling rayon v1.11.0
+   Compiling is-terminal v0.4.17
+   Compiling once_cell v1.21.3
+   Compiling oorandom v11.1.5
+   Compiling anes v0.1.6
+   Compiling criterion-plot v0.5.0
+   Compiling broken-app v0.1.2 (/home/barmichev/codingrep/universe/rust5sprint)
+   Compiling clap v4.5.53
+   Compiling regex v1.12.2
+   Compiling zerocopy-derive v0.8.31
+   Compiling serde_derive v1.0.228
+   Compiling half v2.7.1
+   Compiling ciborium-ll v0.2.2
+   Compiling tinytemplate v1.2.1
+   Compiling ciborium v0.2.2
+   Compiling criterion v0.5.1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.92s
+     Running unittests src/lib.rs (target/miri/x86_64-unknown-linux-gnu/debug/deps/broken_app-dd7a83d8e3154263)
+
+running 19 tests
+test algo::tests::regress_slow_dedup_correct_input ... ok
+test algo::tests::regress_slow_dedup_is_empty ... ok
+test algo::tests::regress_slow_fib ... ok
+test algo::tests::regress_slow_fib_small_values ... ok
+test algo::tests::regress_test_slow_dedup ... ok
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test concurrency::tests::regress_increase_counter ... ok
+test concurrency::tests::regress_race_increment_multi_threads ... ok
+test concurrency::tests::regress_race_increment_one_thread ... ok
+test concurrency::tests::regress_reset_counter ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_leak_buffer_counts_non_zero ... ok
+test tests::regress_normalize_text_spaces ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test tests::regress_use_after_free ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.34s
+
+     Running unittests src/bin/demo.rs (target/miri/x86_64-unknown-linux-gnu/debug/deps/demo-383d6cb92bc0019d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/integration.rs (target/miri/x86_64-unknown-linux-gnu/debug/deps/integration-8c38c45e949b16b5)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.74s
+
+   Doc-tests broken_app
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: valgrind --leak-check=full cargo test --tests
+CMD: valgrind --leak-check=full cargo test --tests
+===============================================================================
+==279239== Memcheck, a memory error detector
+==279239== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==279239== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==279239== Command: cargo test --tests
+==279239== 
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running unittests src/lib.rs (target/debug/deps/broken_app-f2d9852c9abfed80)
+
+running 19 tests
+test algo::tests::regress_slow_dedup_correct_input ... ok
+test algo::tests::regress_test_slow_dedup ... ok
+test algo::tests::regress_slow_dedup_is_empty ... ok
+test algo::tests::test_binary_search ... ok
+test algo::tests::regress_slow_fib_small_values ... ok
+test algo::tests::regress_slow_fib ... ok
+test algo::tests::test_binary_search_exists ... ok
+test concurrency::tests::regress_increase_counter ... ok
+test concurrency::tests::regress_race_increment_multi_threads ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_leak_buffer_counts_non_zero ... ok
+test tests::regress_normalize_text_spaces ... ok
+test concurrency::tests::regress_race_increment_one_thread ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test concurrency::tests::regress_reset_counter ... ok
+test tests::regress_use_after_free ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/debug/deps/demo-990f45db1f5f4a1a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/debug/deps/integration-ecc1dfa12eb2f840)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: valgrid (...) target/debug/demo
+CMD: valgrind -s --leak-check=full --show-leak-kinds=all target/debug/demo
+===============================================================================
+==279289== Memcheck, a memory error detector
+==279289== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==279289== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==279289== Command: target/debug/demo
+==279289== 
+sum_even: 25276502
+non-zero bytes: 996138
+normalize: helloworld
+fib(40): 102334155
+dedup: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
+==279289== 
+==279289== HEAP SUMMARY:
+==279289==     in use at exit: 544 bytes in 1 blocks
+==279289==   total heap usage: 24 allocs, 23 frees, 17,006,112 bytes allocated
+==279289== 
+==279289== 544 bytes in 1 blocks are still reachable in loss record 1 of 1
+==279289==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==279289==    by 0x156D5C: alloc (alloc.rs:95)
+==279289==    by 0x156D5C: alloc_impl_runtime (alloc.rs:190)
+==279289==    by 0x156D5C: alloc_impl (alloc.rs:312)
+==279289==    by 0x156D5C: allocate (alloc.rs:429)
+==279289==    by 0x156D5C: try_new_uninit_in<alloc::collections::btree::node::LeafNode<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>, alloc::alloc::Global> (boxed.rs:582)
+==279289==    by 0x156D5C: new_uninit_in<alloc::collections::btree::node::LeafNode<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>, alloc::alloc::Global> (boxed.rs:549)
+==279289==    by 0x156D5C: new<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (node.rs:87)
+==279289==    by 0x156D5C: new_leaf<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (node.rs:225)
+==279289==    by 0x156D5C: insert_entry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (entry.rs:403)
+==279289==    by 0x156D5C: insert<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (entry.rs:377)
+==279289==    by 0x156D5C: insert<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (map.rs:1053)
+==279289==    by 0x156D5C: std::sys::pal::unix::stack_overflow::thread_info::set_current_info (thread_info.rs:122)
+==279289==    by 0x15554E: init (stack_overflow.rs:179)
+==279289==    by 0x15554E: init (mod.rs:41)
+==279289==    by 0x15554E: init (rt.rs:118)
+==279289==    by 0x15554E: {closure#0} (rt.rs:173)
+==279289==    by 0x15554E: do_call<std::rt::lang_start_internal::{closure_env#0}, isize> (panicking.rs:581)
+==279289==    by 0x15554E: catch_unwind<isize, std::rt::lang_start_internal::{closure_env#0}> (panicking.rs:544)
+==279289==    by 0x15554E: catch_unwind<std::rt::lang_start_internal::{closure_env#0}, isize> (panic.rs:359)
+==279289==    by 0x15554E: std::rt::lang_start_internal (rt.rs:171)
+==279289==    by 0x133E16: std::rt::lang_start (rt.rs:205)
+==279289==    by 0x1329FD: main (in /home/barmichev/codingrep/universe/rust5sprint/target/debug/demo)
+==279289== 
+==279289== LEAK SUMMARY:
+==279289==    definitely lost: 0 bytes in 0 blocks
+==279289==    indirectly lost: 0 bytes in 0 blocks
+==279289==      possibly lost: 0 bytes in 0 blocks
+==279289==    still reachable: 544 bytes in 1 blocks
+==279289==         suppressed: 0 bytes in 0 blocks
+==279289== 
+==279289== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: ASan (nightly)
+CMD: cargo +nightly test -Zbuild-std=std --target x86_64-unknown-linux-gnu --tests
+ENV: {'RUSTFLAGS': '-Zsanitizer=address', 'CARGO_TARGET_DIR': 'target/asan'}
+===============================================================================
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running unittests src/lib.rs (target/asan/x86_64-unknown-linux-gnu/debug/deps/broken_app-eddddaec425291b5)
+
+running 19 tests
+test algo::tests::regress_slow_dedup_correct_input ... ok
+test algo::tests::regress_slow_dedup_is_empty ... ok
+test algo::tests::regress_slow_fib ... ok
+test algo::tests::regress_slow_fib_small_values ... ok
+test algo::tests::regress_test_slow_dedup ... ok
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test concurrency::tests::regress_increase_counter ... ok
+test concurrency::tests::regress_race_increment_multi_threads ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test tests::regress_average_positive ... ok
+test concurrency::tests::regress_race_increment_one_thread ... ok
+test tests::regress_leak_buffer_counts_non_zero ... ok
+test tests::regress_normalize_text_spaces ... ok
+test tests::regress_sum_even ... ok
+test concurrency::tests::regress_reset_counter ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test tests::regress_use_after_free ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/bin/demo.rs (target/asan/x86_64-unknown-linux-gnu/debug/deps/demo-4abae0d4c95dd9d9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/asan/x86_64-unknown-linux-gnu/debug/deps/integration-0476db4ee75719ae)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+[EXIT CODE] (0)
+
+===============================================================================
+STEP: TSan (nightly)
+CMD: cargo +nightly test -Zbuild-std=std --target x86_64-unknown-linux-gnu --tests -- --no-capture
+ENV: {'RUSTFLAGS': '-Zsanitizer=thread', 'CARGO_TARGET_DIR': 'target/tsan'}
+===============================================================================
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.17s
+     Running unittests src/lib.rs (target/tsan/x86_64-unknown-linux-gnu/debug/deps/broken_app-89a013c5bd457448)
+
+running 19 tests
+test algo::tests::regress_slow_dedup_correct_input ... ok
+test algo::tests::regress_slow_dedup_is_empty ... ok
+test algo::tests::regress_slow_fib ... ok
+test algo::tests::regress_slow_fib_small_values ... ok
+test algo::tests::regress_test_slow_dedup ... ok
+test algo::tests::test_binary_search ... ok
+test algo::tests::test_binary_search_exists ... ok
+test concurrency::tests::regress_increase_counter ... ok
+test concurrency::tests::regress_race_increment_multi_threads ... ok
+test concurrency::tests::regress_race_increment_one_thread ... ok
+test tests::regress_average_not_positive_ignore ... ok
+test concurrency::tests::regress_reset_counter ... ok
+test tests::regress_average_positive ... ok
+test tests::regress_leak_buffer_counts_non_zero ... ok
+test tests::regress_normalize_text_spaces ... ok
+test tests::regress_sum_even ... ok
+test tests::regress_sum_even_empty ... ok
+test tests::regress_sum_even_last ... ok
+test tests::regress_use_after_free ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/bin/demo.rs (target/tsan/x86_64-unknown-linux-gnu/debug/deps/demo-8877e4f235489cf3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/tsan/x86_64-unknown-linux-gnu/debug/deps/integration-f9aee60d73686044)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+[EXIT CODE] (0)
+
+
+Итог:
+- OK         cargo test -- --nocapture
+- OK         cargo +nightly miri test
+- OK         valgrind --leak-check=full cargo test --tests
+- OK         valgrid (...) target/debug/demo
+- OK         ASan (nightly)
+- OK         TSan (nightly)
